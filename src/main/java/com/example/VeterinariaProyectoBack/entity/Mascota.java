@@ -42,7 +42,7 @@ public class Mascota implements Serializable {
     private String fotografia;
 
     @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.MERGE, mappedBy = "cliente")
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.MERGE, mappedBy = "mascota")
     private List< CitaMedica> citas;
 
     public int getIdMascota() {

@@ -31,7 +31,7 @@ public class Rol implements Serializable {
     private String nombre;
     
     @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.MERGE, mappedBy = "cliente")
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.MERGE, mappedBy = "rol")
     private List< Usuario> usuarios;
 
     public int getIdRol() {

@@ -46,11 +46,11 @@ public class Usuario implements Serializable {
     private Rol rol;
 
     @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.MERGE, mappedBy = "cliente")
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.MERGE, mappedBy = "usuario")
     private List< Mascota> mascotas;
 
     @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.MERGE, mappedBy = "cliente")
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.MERGE, mappedBy = "usuario")
     private List< CitaMedica> citas;
 
     public int getIdRol() {
