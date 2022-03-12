@@ -29,6 +29,20 @@ public class MascotaService {
     public List<Mascota> getAllMascota(){
         return mascotaRepository.findAll();
     }
+    @GetMapping("/buscar/{id}")
+    public Mascota findById(@PathVariable final Long id){
+        Mascota mascota = new Mascota();
+        List<Mascota> mascotas = mascotaRepository.findAll();
+        for(int i = 0; i < mascotas.size();i++){
+            if(mascotas.get(i).getIdMascota()==id){
+                mascota= mascotas.get(i);
+            }
+            else{
+                mascota=null;
+            }
+        }
+        return mascota;
+    }
 
     @PostMapping("/guardar")
     public Mascota saveMascota(@RequestBody Mascota mascota){

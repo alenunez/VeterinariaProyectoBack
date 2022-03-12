@@ -31,7 +31,7 @@ public class Usuario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    private int idRol;
+    private int idUsuario;
 
     private String nombres;
     private String apellidos;
@@ -53,12 +53,12 @@ public class Usuario implements Serializable {
     @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.MERGE, mappedBy = "usuario")
     private List< CitaMedica> citas;
 
-    public int getIdRol() {
-        return idRol;
+    public int getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setIdRol(int idRol) {
-        this.idRol = idRol;
+    public void setIdUsuario(int idRol) {
+        this.idUsuario = idRol;
     }
 
     public String getNombres() {

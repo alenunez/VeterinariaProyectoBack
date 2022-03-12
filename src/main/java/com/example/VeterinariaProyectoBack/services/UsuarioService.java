@@ -29,6 +29,21 @@ public class UsuarioService {
         return usuarioRepository.findAll();
     }
 
+    @GetMapping("/buscar/{id}")
+    public Usuario findById(@PathVariable final Long id){
+        Usuario usuario = new Usuario();
+        List<Usuario> usuarios = usuarioRepository.findAll();
+        for(int i = 0; i < usuarios.size();i++){
+            if(usuarios.get(i).getIdUsuario()==id){
+                usuario = usuarios.get(i);
+            }
+            else{
+                usuario =null;
+            }
+        }
+        return usuario;
+    }
+
     @PostMapping("/guardar")
     public Usuario saveUsuario(@RequestBody Usuario usuario){
         return usuarioRepository.save(usuario);

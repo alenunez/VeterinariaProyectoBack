@@ -28,6 +28,21 @@ public class RolService {
         return rolRepository.findAll();
     }
 
+    @GetMapping("/buscar/{id}")
+    public Rol findById(@PathVariable final Long id){
+        Rol rol = new Rol();
+        List<Rol> roles = rolRepository.findAll();
+        for(int i = 0; i < roles.size();i++){
+            if(roles.get(i).getIdRol()==id){
+                rol = roles.get(i);
+            }
+            else{
+                rol =null;
+            }
+        }
+        return rol;
+    }
+
     @PostMapping("/guardar")
     public Rol saveRol(@RequestBody Rol rol){
         return rolRepository.save(rol);

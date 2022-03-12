@@ -29,6 +29,21 @@ public class CitaMedicaService {
         return citaMedicaRepository.findAll();
     }
 
+    @GetMapping("/buscar/{id}")
+    public CitaMedica findById(@PathVariable final Long id){
+        CitaMedica cita = new CitaMedica();
+        List<CitaMedica> citas = citaMedicaRepository.findAll();
+        for(int i = 0; i < citas.size();i++){
+            if(citas.get(i).getIdCita()==id){
+                cita = citas.get(i);
+            }
+            else{
+                cita =null;
+            }
+        }
+        return cita;
+    }
+
     @PostMapping("/guardar")
     public CitaMedica saveCitaMedica(@RequestBody CitaMedica citaMedica){
         return citaMedicaRepository.save(citaMedica);
