@@ -1,19 +1,14 @@
 package com.example.VeterinariaProyectoBack.entity;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -30,10 +25,11 @@ public class Rol implements Serializable {
 
     private String nombre;
     
+    /** 
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.MERGE, mappedBy = "rol")
     private List< Usuario> usuarios;
-
+*/
     public int getIdRol() {
         return idRol;
     }
@@ -49,7 +45,7 @@ public class Rol implements Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
+/** 
     public List<Usuario> getUsuarios() {
         return usuarios;
     }
@@ -58,5 +54,5 @@ public class Rol implements Serializable {
         this.usuarios = usuarios;
     }
     
-    
+    */
 }

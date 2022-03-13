@@ -24,6 +24,8 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+
+
     @GetMapping("/buscar")
     public List<Usuario> getAllUsuario(){
         return usuarioRepository.findAll();
@@ -46,6 +48,12 @@ public class UsuarioService {
 
     @PostMapping("/guardar")
     public Usuario saveUsuario(@RequestBody Usuario usuario){
+     /**  List<Rol>roles = rolRepository.findAll();  
+         for(int i = 0; i < roles.size();i++){
+             if(usuario.getRol().getIdRol()==roles.get(i).getIdRol()){
+                 usuario.setRol(roles.get(i));
+             }
+         }   */    
         return usuarioRepository.save(usuario);
     }
 
@@ -55,6 +63,17 @@ public class UsuarioService {
         usuario = usuarioRepository.findById(id);
         if(usuario.isPresent()){
             usuarioRepository.delete(usuario.get());
+        }
+    }
+
+    @PostMapping("/login")
+    public Usuario login(@RequestBody Usuario usuario){
+        List<Usuario> usuarios = usuarioRepository.findByCorreoAndPassword(usuario.getCorreo(), usuario.getPassword() );
+        if(!usuarios.isEmpty() ){
+            return usuarios.get(0);
+        }
+        else{
+            return null;
         }
     }
     

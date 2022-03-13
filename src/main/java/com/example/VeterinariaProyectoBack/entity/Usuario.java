@@ -17,7 +17,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -41,10 +40,11 @@ public class Usuario implements Serializable {
     private String telefono;
     private String direccion;
     private Date fechaNacimiento;
-
+    private String rol;
+    /** 
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
     private Rol rol;
-
+*/
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.MERGE, mappedBy = "usuario")
     private List< Mascota> mascotas;
@@ -124,7 +124,7 @@ public class Usuario implements Serializable {
     public void setFechaNacimiento(Date fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
-
+    /** 
     public Rol getRol() {
         return rol;
     }
@@ -132,7 +132,7 @@ public class Usuario implements Serializable {
     public void setRol(Rol rol) {
         this.rol = rol;
     }
-
+*/
     public List<Mascota> getMascotas() {
         return mascotas;
     }
@@ -147,7 +147,17 @@ public class Usuario implements Serializable {
 
     public void setCitas(List<CitaMedica> citas) {
         this.citas = citas;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
     } 
+
+    
 
     
     
