@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,6 +30,10 @@ public class UsuarioService {
 
     @Autowired
     private MascotaRepository mascotaRepository;
+
+    public Usuario actualizar(Usuario usuario) {
+        return usuarioRepository.save(usuario);
+    }
 
     @GetMapping("/buscar")
     public List<Usuario> getAllUsuario() {
@@ -51,7 +56,8 @@ public class UsuarioService {
 
     @GetMapping("/buscar/mascotas/{id}")
     public List<Mascota> getMascotasUsersById(@PathVariable final Long id) {
-        List<Mascota> mascotasUsuario = new ArrayList<Mascota>();;
+        List<Mascota> mascotasUsuario = new ArrayList<Mascota>();
+        ;
         List<Mascota> mascotas = mascotaRepository.findAll();
         for (int i = 0; i < mascotas.size(); i++) {
             if (mascotas.get(i).getUsuario().getIdUsuario() == id) {
@@ -63,15 +69,19 @@ public class UsuarioService {
 
     @PostMapping("/guardar")
     public Usuario saveUsuario(@RequestBody Usuario usuario) {
-        /**
-         * List<Rol>roles = rolRepository.findAll();
-         * for(int i = 0; i < roles.size();i++){
-         * if(usuario.getRol().getIdRol()==roles.get(i).getIdRol()){
-         * usuario.setRol(roles.get(i));
-         * }
-         * }
-         */
+
         return usuarioRepository.save(usuario);
+    }
+
+    @PutMapping("/actualizar")
+    public void actualizarUsuario(@RequestBody Usuario usuario /**,@PathVariable final Long id)*/ ){
+      //  List<Usuario> usuarios = usuarioRepository.findAll();
+      //  for (int i = 0; i < usuarios.size(); i++) {
+       //     if (usuarios.get(i).getIdUsuario() == id) {
+                actualizar(usuario);
+       //     }
+       // }
+
     }
 
     @DeleteMapping("/eliminar/{id}")

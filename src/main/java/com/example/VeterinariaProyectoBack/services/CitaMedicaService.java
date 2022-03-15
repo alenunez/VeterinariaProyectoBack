@@ -9,6 +9,7 @@ import com.example.VeterinariaProyectoBack.entity.Usuario;
 import com.example.VeterinariaProyectoBack.repository.CitaMedicaRepository;
 import com.example.VeterinariaProyectoBack.repository.MascotaRepository;
 import com.example.VeterinariaProyectoBack.repository.UsuarioRepository;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -34,6 +35,14 @@ public class CitaMedicaService {
     @Autowired
     private MascotaRepository mascotaRepository;
 
+    public CitaMedica actualizar(CitaMedica citaMedica) {
+        return citaMedicaRepository.save(citaMedica);
+    }
+    @PutMapping("/actualizar")
+    public void actualizarMascota(@RequestBody CitaMedica citaMedica){
+                actualizar(citaMedica);
+    }
+
 
     @GetMapping("/buscar")
     public List<CitaMedica> getAllCitaMedica(){
@@ -46,10 +55,7 @@ public class CitaMedicaService {
         List<CitaMedica> citas = citaMedicaRepository.findAll();
         for(int i = 0; i < citas.size();i++){
             if(citas.get(i).getIdCita()==id){
-                cita = citas.get(i);
-            }
-            else{
-                cita =null;
+                return citas.get(i);
             }
         }
         return cita;
