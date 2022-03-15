@@ -45,6 +45,14 @@ public class Mascota implements Serializable {
     @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.MERGE, mappedBy = "mascota")
     private List< CitaMedica> citas;
 
+    public Mascota(){
+        
+    }
+ public Mascota(Usuario usuario){
+     this.usuario=usuario;
+
+ }
+
     public int getIdMascota() {
         return idMascota;
     }

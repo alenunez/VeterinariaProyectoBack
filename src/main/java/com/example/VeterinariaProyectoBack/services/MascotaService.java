@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import com.example.VeterinariaProyectoBack.entity.Mascota;
+import com.example.VeterinariaProyectoBack.entity.Usuario;
 import com.example.VeterinariaProyectoBack.repository.MascotaRepository;
+import com.example.VeterinariaProyectoBack.repository.UsuarioRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -25,6 +27,9 @@ public class MascotaService {
     @Autowired
     private MascotaRepository mascotaRepository;
 
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
     @GetMapping("/buscar")
     public List<Mascota> getAllMascota(){
         return mascotaRepository.findAll();
@@ -35,19 +40,28 @@ public class MascotaService {
         List<Mascota> mascotas = mascotaRepository.findAll();
         for(int i = 0; i < mascotas.size();i++){
             if(mascotas.get(i).getIdMascota()==id){
-                mascota= mascotas.get(i);
+                return mascotas.get(i);
             }
-            else{
-                mascota=null;
-            }
+ 
         }
         return mascota;
     }
 
-    @PostMapping("/guardar")
-    public Mascota saveMascota(@RequestBody Mascota mascota){
+
+    @PostMapping("/guardar/{idUsuario}")
+    public Mascota saveMascota(@RequestBody Mascota mascota,@PathVariable("idUsuario") int idUsuario){
+        List<Usuario>usuarios = usuarioRepository.findAll();
+        Usuario usuario = new Usuario();
+        for(int i = 0 ; i <usuarios.size();i++){
+            if(usuarios.get(i).getIdUsuario()==idUsuario){
+                usuario = usuarios.get(i);
+            }
+        }
+        mascota.setUsuario(usuario);
+
         return mascotaRepository.save(mascota);
     }
+
 
     @DeleteMapping("/eliminar/{id}")
     public void deleteMascota(@PathVariable ("id") int id){
