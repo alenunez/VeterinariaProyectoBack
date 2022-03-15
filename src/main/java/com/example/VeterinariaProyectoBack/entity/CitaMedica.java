@@ -43,6 +43,11 @@ public class CitaMedica implements Serializable {
 
     private String tratamiento;
 
+    public CitaMedica(){        
+    }
+  //  public CitaMedica(Usuario usuario,Mascota mascota){        
+  //  }
+
     public int getIdCita() {
         return idCita;
     }

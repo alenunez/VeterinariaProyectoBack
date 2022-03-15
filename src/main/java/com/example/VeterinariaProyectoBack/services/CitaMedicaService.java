@@ -4,7 +4,11 @@ import java.util.List;
 import java.util.Optional;
 
 import com.example.VeterinariaProyectoBack.entity.CitaMedica;
+import com.example.VeterinariaProyectoBack.entity.Mascota;
+import com.example.VeterinariaProyectoBack.entity.Usuario;
 import com.example.VeterinariaProyectoBack.repository.CitaMedicaRepository;
+import com.example.VeterinariaProyectoBack.repository.MascotaRepository;
+import com.example.VeterinariaProyectoBack.repository.UsuarioRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -23,6 +27,13 @@ public class CitaMedicaService {
 
     @Autowired
     private CitaMedicaRepository citaMedicaRepository;
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private MascotaRepository mascotaRepository;
+
 
     @GetMapping("/buscar")
     public List<CitaMedica> getAllCitaMedica(){
@@ -44,9 +55,26 @@ public class CitaMedicaService {
         return cita;
     }
 
-    @PostMapping("/guardar")
-    public CitaMedica saveCitaMedica(@RequestBody CitaMedica citaMedica){
-        return citaMedicaRepository.save(citaMedica);
+    @PostMapping("/guardar/{idUsuario}/{idMascota}")
+    public CitaMedica saveCita(@RequestBody CitaMedica cita,@PathVariable("idUsuario") int idUsuario,@PathVariable("idMascota") int idMascota){
+        List<Usuario>usuarios = usuarioRepository.findAll();
+        Usuario usuario = new Usuario();
+        for(int i = 0 ; i <usuarios.size();i++){
+            if(usuarios.get(i).getIdUsuario()==idUsuario){
+                usuario = usuarios.get(i);
+            }
+        }
+        List<Mascota> mascotas = mascotaRepository.findAll();
+        Mascota mascota = new Mascota();
+        for(int i = 0 ; i <mascotas.size();i++){
+            if(mascotas.get(i).getIdMascota()==idMascota){
+                mascota = mascotas.get(i);
+            }
+        }
+        cita.setUsuario(usuario);
+        cita.setMascota(mascota);
+
+        return citaMedicaRepository.save(cita);
     }
 
     @DeleteMapping("/eliminar/{id}")
